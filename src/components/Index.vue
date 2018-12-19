@@ -15,34 +15,39 @@
 </template>
 
 <script>
-import db from '@/firebase/init'
+import db from "@/firebase/init";
 
 export default {
-  name: 'Index',
-  data () {
+  name: "Index",
+  data() {
     return {
       recipes: []
-    }
+    };
   },
   methods: {
-    deleteRecipe(id){
-      this.recipes = this.recipes.filter(recipe => {
-        return recipe.id != id
-      })
+    deleteRecipe(id) {
+      // DELETE DOC FROM FIRESTORE
+      db.collection("recipes").doc(id).delete()
+        .then(() => {
+          this.recipes = this.recipes.filter(recipe => {
+            return recipe.id != id;
+          });
+        });
     }
   },
-  created(){
+  created() {
     //fetch data from firestore
-    db.collection('recipes').get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        let recipe = doc.data()
-        recipe.id = doc.id
-        this.recipes.push(recipe)
+    db.collection("recipes")
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          let recipe = doc.data();
+          recipe.id = doc.id;
+          this.recipes.push(recipe);
+        });
       });
-    })
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -58,10 +63,10 @@ export default {
   text-align: center;
   margin-top: 0px;
 }
-.index .ingredients{
+.index .ingredients {
   margin: 30px auto;
 }
-.index .ingredients li{
+.index .ingredients li {
   display: inline-block;
 }
 .index .delete {
