@@ -8,6 +8,7 @@
 <script>
 import Navbar from '@/components/Navbar'
 import AddRecipe from '@/components/AddRecipe'
+
 export default {
   name: 'App',
   components: {
