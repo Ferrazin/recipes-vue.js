@@ -1,6 +1,7 @@
 # Recipe-Cards
 
 > A Vue.js project
+
 This simple app allows to view, create, edit, and remove recipes from a database.
 
 ## Technologies used:
